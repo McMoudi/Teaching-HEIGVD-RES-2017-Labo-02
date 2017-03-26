@@ -9,6 +9,7 @@ import ch.heigvd.res.labs.roulette.net.protocol.RandomCommandResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -24,25 +25,38 @@ import java.util.logging.Logger;
 public class RouletteV1ClientImpl implements IRouletteV1Client {
 
   private static final Logger LOG = Logger.getLogger(RouletteV1ClientImpl.class.getName());
+  Socket clientSocket;
+  BufferedReader in;
+  PrintWriter out;
+  boolean isConnect = false;
 
   @Override
   public void connect(String server, int port) throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    clientSocket = new Socket(server, port);
+    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+    isConnect = true;
   }
 
   @Override
   public void disconnect() throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    if(isConnect){
+        in.close();
+        out.close();
+        clientSocket.close();
+        isConnect = false;
+    }  
   }
 
   @Override
   public boolean isConnected() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return isConnect;
   }
 
   @Override
   public void loadStudent(String fullname) throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templatesvagrant  
+      
   }
 
   @Override
@@ -62,9 +76,7 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
 
   @Override
   public String getProtocolVersion() throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
   }
-
-
 
 }

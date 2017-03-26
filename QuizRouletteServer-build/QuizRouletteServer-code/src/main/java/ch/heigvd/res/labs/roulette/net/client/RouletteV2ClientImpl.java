@@ -21,7 +21,9 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
 
   @Override
   public List<Student> listStudents() throws IOException {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      send(RouletteV2Protocol.CMD_LOAD);
+    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      return JsonObjectMapper.parseJson(readLine(), StudentsList.class).getStudents();
   }
   
 }

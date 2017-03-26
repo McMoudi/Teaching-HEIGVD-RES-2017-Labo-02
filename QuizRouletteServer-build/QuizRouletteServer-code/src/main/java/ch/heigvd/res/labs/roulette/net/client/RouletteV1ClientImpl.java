@@ -24,10 +24,6 @@ import java.util.logging.Logger;
 public class RouletteV1ClientImpl implements IRouletteV1Client {
 
   private static final Logger LOG = Logger.getLogger(RouletteV1ClientImpl.class.getName());
-  Socket clientSocket;
-  BufferedReader in;
-  PrintWriter out;
-  boolean isConnect = false;
 
   private Socket conn;
 
@@ -76,13 +72,28 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
     send(RouletteV1Protocol.CMD_LOAD);
     send(fullname);
     send(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
-
+    
+    //flush answers
+    is.readLine();
+    is.readLine();
   }
-
-  @Override
-  public void loadStudents(List<Student> students) throws IOException {
-    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
+  
+   @Override
+    public void loadStudents(List<Student> students) throws IOException {
+        if(students == null || students.isEmpty())
+            return;
+        send(RouletteV1Protocol.CMD_LOAD);
+        
+        //Comment tester la reponse du serveur???
+        
+        for(Student s : students){
+            if(s!=null && !s.getFullname().isEmpty()){
+                send(s.getFullname());
+            }
+        }
+        
+        send(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
+    }
 
   @Override
   public Student pickRandomStudent() throws EmptyStoreException, IOException {
@@ -113,7 +124,9 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
   }
 
   private void send(String msg) throws IOException{
-   
+      os.write(msg);
+      os.newLine();
+      os.flush();
   }
 
 }

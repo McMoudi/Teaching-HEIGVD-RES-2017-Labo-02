@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
  * @author Yann Mahmoudi
  * @author Marie Lemdjo
  */
-@Ignore
 public class RouletteV2McMoudiTest {
 
   @Rule

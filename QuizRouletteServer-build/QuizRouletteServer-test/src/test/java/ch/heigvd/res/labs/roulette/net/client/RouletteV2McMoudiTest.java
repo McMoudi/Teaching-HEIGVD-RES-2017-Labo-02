@@ -23,14 +23,8 @@ public class RouletteV2McMoudiTest {
   public ExpectedException exception = ExpectedException.none();
 
   @Rule
-  public EphemeralClientServerPair roulettePair = new EphemeralClientServerPair(RouletteV1Protocol.VERSION);//FIXME should be V2
+  public EphemeralClientServerPair roulettePair = new EphemeralClientServerPair(RouletteV2Protocol.VERSION);
 
-
-  @Test
-  @TestAuthor(githubId = "McMoudi")
-  public void plop() throws IOException {
-
-  }
 
 
 }

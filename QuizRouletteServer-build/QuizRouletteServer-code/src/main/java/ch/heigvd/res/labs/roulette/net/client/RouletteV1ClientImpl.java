@@ -63,7 +63,7 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
 
     @Override
     public boolean isConnected() {
-        return !conn.isClosed();
+        return conn.isConnected() && !conn.isClosed();
     }
 
     @Override

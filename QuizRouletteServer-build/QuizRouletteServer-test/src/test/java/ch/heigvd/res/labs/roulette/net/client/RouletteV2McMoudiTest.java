@@ -41,6 +41,7 @@ public class RouletteV2McMoudiTest {
     RouletteServer rs = new RouletteServer(2613,RouletteV2Protocol.VERSION);
     rs.startServer();
     assertEquals(rs.getPort(), 2613); //FIXME no static port for v2 yet in RouletteV2Protocol
+    rs.stopServer();
   }
 
   @Test

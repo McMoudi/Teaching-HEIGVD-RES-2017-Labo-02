@@ -23,12 +23,12 @@ import java.util.logging.Logger;
  */
 public class RouletteV1ClientImpl implements IRouletteV1Client {
 
-    private static final Logger LOG = Logger.getLogger(RouletteV1ClientImpl.class.getName());
+    protected static final Logger LOG = Logger.getLogger(RouletteV1ClientImpl.class.getName());
 
-    private Socket conn;
+    protected Socket conn;
 
-    private BufferedWriter os;
-    private BufferedReader is;
+    protected BufferedWriter os;
+    protected BufferedReader is;
 
 
     public RouletteV1ClientImpl() {
@@ -63,7 +63,7 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
 
     @Override
     public boolean isConnected() {
-        return conn.isConnected();
+        return conn.isConnected() && !conn.isClosed();
     }
 
     @Override
@@ -117,7 +117,7 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
         return JsonObjectMapper.parseJson(is.readLine(), InfoCommandResponse.class).getProtocolVersion();
     }
 
-    private void send(String msg) throws IOException {
+    protected void send(String msg) throws IOException {
         os.write(msg);
         os.newLine();
         os.flush();

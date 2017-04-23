@@ -113,4 +113,16 @@ public class RouletteV2McMoudiTest {
 
     return studentList;
   }
+  
+  @Test
+  @TestAuthor(githubId = "LemdjoM")
+  public void theNumberOfStudentShouldBeCorrectAtTime() throws IOException{
+      assertEquals(roulettePair.getClient().getNumberOfStudents(), 0);
+      
+      roulettePair.getClient().loadStudent("McMoudi");
+       assertEquals(roulettePair.getClient().getNumberOfStudents(), 1);
+       
+      roulettePair.getClient().loadStudent("LemdjoM");
+       assertEquals(roulettePair.getClient().getNumberOfStudents(), 2);
+  } 
 }
